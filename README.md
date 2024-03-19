@@ -1,3 +1,3 @@
 # app07
 
-A new Flutter project.
+Aplicativo flutter para integração de API da ibge
