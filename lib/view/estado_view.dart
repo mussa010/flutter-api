@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 import '../model/estado.dart';
 import '../service/ibge_service.dart';
+import 'municipio_view.dart';
 
 class EstadoView extends StatefulWidget {
   const EstadoView({super.key});
@@ -17,7 +16,7 @@ class _EstadoViewState extends State<EstadoView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         //
         // Requisição da API
         //
@@ -32,10 +31,23 @@ class _EstadoViewState extends State<EstadoView> {
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
-                      leading: Icon(Icons.location_city),
+                      leading: const Icon(Icons.location_city),
                       title:
                           Text('${lista[index].nome} (${lista[index].sigla})'),
                       subtitle: Text('Região ${lista[index].regiao}'),
+
+                      //
+                      // Navegar para View dos Municípios
+                      //
+                      trailing: const Icon(Icons.arrow_right),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MunicipioView(lista[index]),
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
@@ -43,7 +55,7 @@ class _EstadoViewState extends State<EstadoView> {
             }
 
             //Aguardando a requisição
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           },
         ),
       ),
